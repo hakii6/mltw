@@ -3,9 +3,9 @@
 
 		<div class = 'row'>
 
-		    <div class ='col-sm-6'>
-		        <br/>
-		        <div><img src='' width ='450'></div>
+			<div class = 'col-sm-1'/>
+		    <div class ='col-sm-5'>
+		        <div><img :src='song.image' width ='280'></div>
 		    </div>
 
 		    <div class = 'col-sm-6'>
@@ -100,7 +100,10 @@
 		    </tr>
 		</table>
 
+		<hr>
+
 		<div class = 'row'>
+
 
 
 		</div>
@@ -135,6 +138,7 @@ import axios from 'axios'
         	axios
         	.get('https://mltw-wiki.online/api/v1/songs/' + this.$route.params.id)
         	.then(response => (this.song = response.data));
+
 
         }
     }

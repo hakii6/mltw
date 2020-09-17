@@ -18,6 +18,13 @@ class Song extends Model
 
     }
 
+    public function map_info(){
+
+        return $this->hasOne('App\Map_info');
+
+    }
+
+
     public function idols(){
 
         return $this->belongsToMany('App\Idol');

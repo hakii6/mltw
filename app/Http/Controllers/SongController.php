@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Song;
 use App\Http\Resources\Song as SongResource;
+use App\Http\Resources\Map as MapResource;
 
 class SongController extends Controller
 {
@@ -50,6 +51,11 @@ class SongController extends Controller
      */
     public function show($id)
     {
+        if($id === 'info'){
+
+            return MapResource::collection(Song::all());
+
+        }
         $song = Song::findOrFail($id);
 
         return new SongResource($song);

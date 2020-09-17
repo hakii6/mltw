@@ -3,13 +3,15 @@
     "",
     "\\app",
     "\\app\\Http",
-    "\\app\\Http\\Controllers",
     "\\app\\Http\\Resources",
+    "\\database",
+    "\\database\\migrations",
     "\\resources",
     "\\resources\\views",
     "\\resources\\views\\calculators",
-    "\\routes"
+    "\\routes",
+    "\\storage"
   ],
-  "SelectedNode": "\\routes\\web.php",
+  "SelectedNode": "\\app\\Center_skill.php",
   "PreviewInSolutionExplorer": false
 }

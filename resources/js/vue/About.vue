@@ -27,20 +27,30 @@
 	    <hr>
 	    <br>
 
-		<div class ='row p1'>
+		<div class ='row p1' >
 
 		    <br>
 		    <div class = 'col-md-2'/>
 		    <div class = 'col-md-8'>
-		        <div style='text-align:center; font-size:18px;'>
-		        如果想支持這網站<br>或者<br>願意幫這網站升級<br>
-		        <div style=' font-weight:bold; font-size:22px;'>請點下面贊助支持</div><br>
-		        <a href="https://payment.opay.tw/Broadcaster/Donate/1A975A73D6E095858D0AD8A8681B1A66">
-		        <img src="https://payment.opay.tw/Content/themes/WebStyle201404/images/allpay.png" />
-		        </a><br>
-		        <span style='color:grey; font-weight:bold; font-size:14px;'>願意贊助的話<br>50元是剛剛好不會被吃太多手續費的數字<br>
-		        完美(?)</span><br>
-		        <span class='warn' style='font-size:36px'>已確定不能放廣告<br></span><br>
+		    	<div style='text-decoration:line-through;'>
+			        <div style='text-align:center; font-size:18px;'>
+			        如果想支持這網站<br>或者<br>願意幫這網站升級<br>
+			        <div style=' font-weight:bold; font-size:22px;'>請點下面贊助支持</div><br>
+			        <a href="https://payment.opay.tw/Broadcaster/Donate/1A975A73D6E095858D0AD8A8681B1A66">
+			        <img src="https://payment.opay.tw/Content/themes/WebStyle201404/images/allpay.png" />
+			        </a><br>
+			        <span style='color:grey; font-weight:bold; font-size:14px;'>願意贊助的話<br>50元是剛剛好不會被吃太多手續費的數字<br>
+			        完美(?)</span><br>
+			        <span class='warn' style='font-size:36px'>已確定不能放廣告<br></span><br>
+			        </div>
+		    	</div>
+
+		        <br>
+		        <div style='font-weight:bold; font-size:22px;'>
+		        	
+		        	不用升級了<br>我試著繞了繞後<br>發現有完成新系統的方法<br>剩下的 每個月上架網站費用 我可以負擔 沒事<br>
+		        	感謝各位～<br>
+
 		        </div>
 
 		    </div>

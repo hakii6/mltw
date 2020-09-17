@@ -3,10 +3,10 @@
 
         <div class='row'>
 
-            <div :class="'col-md-' + display[0]"/>
+            <div :class="margin()"/>
 
         
-            <table :class="'full event col-md-' + display[1]">
+            <table :class="content() + ' full event'">
 
 
                 <thead>
@@ -43,10 +43,11 @@
 
                     </tr>
 
-                    <tr v-if='check_display(event.id)' >
+                    <tr v-if='display[1] == 12' >
 
                         <td v-if='event.type =="tour" || event.type == "theater" '
                         colspan = '2' height='auto' style="text-align:left">
+
                             <div class='row' style='margin:23px;'>
 
                                 <div class = 'col-md-4'>
@@ -109,13 +110,102 @@
                                 </div>
 
                             </div>
+
+                            <div style='text-align:center;'>
+
+                                <button type="button" class="btn btn-primary" v-on:click="get_ep()">日版資訊點我</button>
+
+                                <div v-if='jp_info'>
+
+                                    資料來源：<a href='https://api.matsurihi.me/docs/'>matsurihi.me</a>
+
+                                    <div class = 'row'>
+                                        <div class = 'col-sm-3'/>
+                                        <div class = 'col-sm-6'>
+
+                                            總分排名（總人數：{{ep.count}}）<br>
+                                            <table>
+                                                <tr>
+
+                                                    <th>排名</th>
+                                                    <th>分數</th>
+
+                                                </tr>
+
+                                                <tr v-for='rk in ep.scores'>
+
+                                                    <td>{{rk.rank}}</td>
+                                                    <td>{{rk.score}}</td>
+
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class='col-sm-3'/>
+                                    </div>
+                                    
+                                    <br>
+
+                                    <div class = 'row'>
+                                        <div class = 'col-sm-2'/>
+                                        <div class = 'col-sm-3'>
+
+                                            高分排名（總人數：{{hs.count}}）<br>
+
+                                            <table>
+                                                <tr>
+
+                                                    <th>排名</th>
+                                                    <th>分數</th>
+
+                                                </tr>
+
+                                                <tr v-for='rk in hs.scores'>
+
+                                                    <td>{{rk.rank}}</td>
+                                                    <td>{{rk.score}}</td>
+
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div class = 'col-sm-2'/>
+
+                                        <div class = 'col-sm-3'>
+
+                                            社交圈排名（總人數：{{lp.count}}）<br>
+                                            <table>
+                                                <tr>
+
+                                                    <th>排名</th>
+                                                    <th>分數</th>
+
+                                                </tr>
+
+                                                <tr v-for='rk in lp.scores'>
+
+                                                    <td>{{rk.rank}}</td>
+                                                    <td>{{rk.score}}</td>
+
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div class = 'col-sm-2'/>
+                                    </div>
+
+                                    <br><br>
+
+                                </div>
+
+                            </div>
                         </td>
                     </tr>
 
                 </tbody>
             </table>
 
-            <div :class="'col-md-' + display[2]"/>
+            <div :class="margin()"/>
+            
         </div>
 
 
@@ -126,6 +216,7 @@
 
 <script>
 import _ from "lodash"
+import axios from "axios"
 
     export default {
         props: {
@@ -134,14 +225,52 @@ import _ from "lodash"
         data(){
     		return{
 
-                display:[],
+                display:[1 , 10],
                 date1: new Date(this.event.start_date) / 1000 / 3600,
                 date3: new Date(this.event.end_date) / 1000 / 3600,
+                jp_info: false,
+
+                ep: null,
+                hs: null,
+                lp: null
+
 
 
 			}
         },
         methods:{
+
+            get_ep(){
+                if(this.jp_info){
+
+                    return;
+
+                }
+
+                axios
+                .get('https://api.matsurihi.me/mltd/v1/events/' + this.event.api_id.toString() + '/rankings/borderPoints')
+                .then(response => (
+                    this.ep = response.data.eventPoint,
+                    this.hs = response.data.highScore,
+                    this.lp = response.data.loungePoint,
+                    this.jp_info = true
+                    ));
+
+                
+
+            },
+
+
+            margin(){
+
+                return 'col-md-' + this.display[0];
+
+            },
+            content(){
+
+                return 'col-md-' + this.display[1];
+
+            },
 
             total_time(){
 
@@ -163,48 +292,17 @@ import _ from "lodash"
 
             },
 
-            check_display(id){
-
-                if(this.display.indexOf(id) == -1){
+            sw(){
 
 
-                    return false;
+                if(this.display[0] == 1){
 
-                }
-                else{
-
-                    return true;
-
-
-                }
-
-            },
-            if_display(id){
-
-                if(this.display.indexOf(id) == -1){
-
-                    return [1 , 10 , 1];
+                    this.display = [0 , 12];
 
                 }
                 else{
 
-                    return [0 , 12 , 0];
-
-                }
-
-
-            },
-
-            sw(id){
-
-                if(this.display.indexOf(id) == -1){
-
-                    this.display.push(id);
-
-                }
-                else{
-
-                    this.display.splice(this.display.indexOf(id) , 1);
+                    this.display = [1 , 10];
 
                 }
 

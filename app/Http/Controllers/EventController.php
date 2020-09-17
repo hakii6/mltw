@@ -67,8 +67,12 @@ class EventController extends Controller
 
             if($choose === 'now'){
 
-                $event = Event::orderBy('start_date' , 'DESC')->where('start_date', '<=', date("Y/m/d"))->firstOrFail();
-                return new EventResource($event);
+                $events = Event::orderBy('start_date' , 'DESC')
+                ->where('start_date', '<=', date("Y/m/d"))
+                ->where('end_date', '>=', date("Y/m/d"))->get();
+
+
+                return EventResource::collection($events);
 
             }
             

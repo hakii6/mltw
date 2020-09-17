@@ -2256,6 +2256,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {}
 });
@@ -2747,6 +2757,98 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2874,18 +2976,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     event: {}
   },
   data: function data() {
     return {
-      display: [],
+      display: [1, 10],
       date1: new Date(this.event.start_date) / 1000 / 3600,
-      date3: new Date(this.event.end_date) / 1000 / 3600
+      date3: new Date(this.event.end_date) / 1000 / 3600,
+      jp_info: false,
+      ep: null,
+      hs: null,
+      lp: null
     };
   },
   methods: {
+    get_ep: function get_ep() {
+      var _this = this;
+
+      if (this.jp_info) {
+        return;
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('https://api.matsurihi.me/mltd/v1/events/' + this.event.api_id.toString() + '/rankings/borderPoints').then(function (response) {
+        return _this.ep = response.data.eventPoint, _this.hs = response.data.highScore, _this.lp = response.data.loungePoint, _this.jp_info = true;
+      });
+    },
+    margin: function margin() {
+      return 'col-md-' + this.display[0];
+    },
+    content: function content() {
+      return 'col-md-' + this.display[1];
+    },
     total_time: function total_time() {
       return (this.date3 - this.date1 + 6).toString() + '小時';
     },
@@ -2897,25 +3021,11 @@ __webpack_require__.r(__webpack_exports__);
       var date2 = new Date(this.event.boost_date) / 1000 / 3600;
       return (this.date3 - date2 + 6).toString() + '小時';
     },
-    check_display: function check_display(id) {
-      if (this.display.indexOf(id) == -1) {
-        return false;
+    sw: function sw() {
+      if (this.display[0] == 1) {
+        this.display = [0, 12];
       } else {
-        return true;
-      }
-    },
-    if_display: function if_display(id) {
-      if (this.display.indexOf(id) == -1) {
-        return [1, 10, 1];
-      } else {
-        return [0, 12, 0];
-      }
-    },
-    sw: function sw(id) {
-      if (this.display.indexOf(id) == -1) {
-        this.display.push(id);
-      } else {
-        this.display.splice(this.display.indexOf(id), 1);
+        this.display = [1, 10];
       }
     }
   },
@@ -2939,6 +3049,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Event_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Event.vue */ "./resources/js/vue/Event.vue");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3122,8 +3239,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3131,29 +3246,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      display: []
+      display: [1, 10]
     };
   },
   methods: {
-    check_display: function check_display(id) {
-      if (this.display.indexOf(id) == -1) {
-        return false;
-      } else {
-        return true;
-      }
+    margin: function margin() {
+      return 'col-md-' + this.display[0];
     },
-    if_display: function if_display(id) {
-      if (this.display.indexOf(id) == -1) {
-        return [1, 10, 1];
-      } else {
-        return [0, 12, 0];
-      }
+    content: function content() {
+      return 'col-md-' + this.display[1];
     },
-    sw: function sw(id) {
-      if (this.display.indexOf(id) == -1) {
-        this.display.push(id);
+    sw: function sw() {
+      if (this.display[0] == 1) {
+        this.display = [0, 12];
       } else {
-        this.display.splice(this.display.indexOf(id), 1);
+        this.display = [1, 10];
       }
     },
     add_color: function add_color(limited) {
@@ -3186,6 +3293,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3280,6 +3396,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3291,18 +3431,93 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isMounted: false,
-      event: null,
-      gacha: null
+      events: null,
+      gacha: null,
+      e_countdown: null,
+      e_left: null,
+      g_countdown: null,
+      g_left: null,
+      date: Date.now() / 1000
     };
   },
+  watch: {
+    e_countdown: {
+      handler: function handler(value) {
+        var _this = this;
+
+        if (value > 0) {
+          setTimeout(function () {
+            _this.e_countdown--;
+            _this.e_left = _this.left(_this.e_countdown);
+          }, 1000);
+        }
+
+        immediate: true;
+      }
+    },
+    g_countdown: {
+      handler: function handler(value) {
+        var _this2 = this;
+
+        if (value > 0) {
+          setTimeout(function () {
+            _this2.g_countdown--;
+            _this2.g_left = _this2.left(_this2.g_countdown);
+          }, 1000);
+        }
+
+        immediate: true;
+      }
+    }
+  },
+  methods: {
+    left: function left(temp) {
+      var day;
+      var hr;
+      var min;
+      var sec;
+
+      if (temp >= 86400) {
+        day = Math.floor(temp / 86400).toString() + ' 天 ';
+        temp %= 86400;
+      } else {
+        day = '';
+      }
+
+      if (temp >= 3600) {
+        hr = Math.floor(temp / 3600).toString() + ' 小時 ';
+        temp %= 3600;
+      } else {
+        hr = '';
+      }
+
+      if (temp >= 60) {
+        min = Math.floor(temp / 60).toString() + ' 分 ';
+        temp %= 60;
+      } else {
+        min = '';
+      }
+
+      sec = Math.floor(temp).toString() + ' 秒 ';
+      return '剩餘 ' + day + hr + min + sec;
+    }
+  },
   mounted: function mounted() {
-    var _this = this;
+    var _this3 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.all([axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('https://mltw-wiki.online/api/v1/events/now'), axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('https://mltw-wiki.online/api/v1/gachas/now')]).then(axios__WEBPACK_IMPORTED_MODULE_0___default.a.spread(function (responseA, responseB) {
-      _this.event = responseA.data;
-      _this.gacha = responseB.data;
-    }));
-    this.isMounted = true;
+      _this3.events = responseA.data, _this3.gacha = responseB.data, _this3.g_countdown = Math.floor(new Date(_this3.gacha.end_date) / 1000 + 75599 - _this3.date);
+      _this3.g_left = _this3.left(_this3.g_countdown);
+
+      if (_this3.events.length == 0) {
+        _this3.e_left = '無舉辦中活動';
+      } else {
+        _this3.e_countdown = Math.floor(new Date(_this3.events[0].end_date) / 1000 + 75599 - _this3.date);
+        _this3.e_left = _this3.left(_this3.e_countdown);
+      }
+
+      _this3.isMounted = true;
+    }))["finally"](function () {});
   }
 });
 
@@ -3682,6 +3897,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {},
@@ -3703,6 +3921,111 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/SongTotalData.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/vue/SongTotalData.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {},
+  data: function data() {
+    return {
+      songs_info: [],
+      order: ['date', 'ASC'],
+      date: Date.now()
+    };
+  },
+  methods: {},
+  computed: {},
+  mounted: function mounted() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('https://mltw-wiki.online/api/v1/songs/info').then(function (response) {
+      return _this.songs_info = response.data;
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/Songs.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/vue/Songs.vue?vue&type=script&lang=js& ***!
@@ -3716,6 +4039,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
 //
 //
 //
@@ -21587,67 +21912,90 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-md-2" }),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticStyle: { "text-decoration": "line-through" } }, [
+            _c(
+              "div",
+              { staticStyle: { "text-align": "center", "font-size": "18px" } },
+              [
+                _vm._v("\n\t\t\t        如果想支持這網站"),
+                _c("br"),
+                _vm._v("或者"),
+                _c("br"),
+                _vm._v("願意幫這網站升級"),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticStyle: { "font-weight": "bold", "font-size": "22px" }
+                  },
+                  [_vm._v("請點下面贊助支持")]
+                ),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href:
+                        "https://payment.opay.tw/Broadcaster/Donate/1A975A73D6E095858D0AD8A8681B1A66"
+                    }
+                  },
+                  [
+                    _c("img", {
+                      attrs: {
+                        src:
+                          "https://payment.opay.tw/Content/themes/WebStyle201404/images/allpay.png"
+                      }
+                    })
+                  ]
+                ),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      color: "grey",
+                      "font-weight": "bold",
+                      "font-size": "14px"
+                    }
+                  },
+                  [
+                    _vm._v("願意贊助的話"),
+                    _c("br"),
+                    _vm._v("50元是剛剛好不會被吃太多手續費的數字"),
+                    _c("br"),
+                    _vm._v("\n\t\t\t        完美(?)")
+                  ]
+                ),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "warn", staticStyle: { "font-size": "36px" } },
+                  [_vm._v("已確定不能放廣告"), _c("br")]
+                ),
+                _c("br")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { "text-align": "center", "font-size": "18px" } },
+            { staticStyle: { "font-weight": "bold", "font-size": "22px" } },
             [
-              _vm._v("\n\t\t        如果想支持這網站"),
+              _vm._v("\n\t\t        \t\n\t\t        \t不用升級了"),
               _c("br"),
-              _vm._v("或者"),
+              _vm._v("我試著繞了繞後"),
               _c("br"),
-              _vm._v("願意幫這網站升級"),
+              _vm._v("發現有完成新系統的方法"),
               _c("br"),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticStyle: { "font-weight": "bold", "font-size": "22px" } },
-                [_vm._v("請點下面贊助支持")]
-              ),
+              _vm._v("剩下的 每個月上架網站費用 我可以負擔 沒事"),
               _c("br"),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  attrs: {
-                    href:
-                      "https://payment.opay.tw/Broadcaster/Donate/1A975A73D6E095858D0AD8A8681B1A66"
-                  }
-                },
-                [
-                  _c("img", {
-                    attrs: {
-                      src:
-                        "https://payment.opay.tw/Content/themes/WebStyle201404/images/allpay.png"
-                    }
-                  })
-                ]
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticStyle: {
-                    color: "grey",
-                    "font-weight": "bold",
-                    "font-size": "14px"
-                  }
-                },
-                [
-                  _vm._v("願意贊助的話"),
-                  _c("br"),
-                  _vm._v("50元是剛剛好不會被吃太多手續費的數字"),
-                  _c("br"),
-                  _vm._v("\n\t\t        完美(?)")
-                ]
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "span",
-                { staticClass: "warn", staticStyle: { "font-size": "36px" } },
-                [_vm._v("已確定不能放廣告"), _c("br")]
-              ),
+              _vm._v("\n\t\t        \t感謝各位～"),
               _c("br")
             ]
           )
@@ -22840,260 +23188,406 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
-      _c("div", { class: "col-md-1" + _vm.if_display(_vm.event.id)[0] }),
+      _c("div", { class: _vm.margin() }),
       _vm._v(" "),
-      _c(
-        "table",
-        { class: "full event col-md-" + _vm.if_display(_vm.event.id)[1] },
-        [
-          _c("thead", [
-            _c("tr", [
-              _c("th", { staticClass: "col-md-6" }, [
-                _vm._v(_vm._s(_vm.event.name_tw))
-              ]),
-              _vm._v(" "),
-              _c("th", { staticClass: "col-md-6" }, [
-                _vm._v(
-                  _vm._s(_vm.event.start_date) +
-                    " ~ " +
-                    _vm._s(_vm.event.end_date)
-                )
-              ])
+      _c("table", { class: _vm.content() + " full event" }, [
+        _c("thead", [
+          _c("tr", [
+            _c("th", { staticClass: "col-md-6" }, [
+              _vm._v(_vm._s(_vm.event.name_tw))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "col-md-6" }, [
+              _vm._v(
+                _vm._s(_vm.event.start_date) +
+                  " ~ " +
+                  _vm._s(_vm.event.end_date)
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tbody", [
+          _c("tr", [
+            _c("td", { staticClass: "col-md-6", attrs: { height: "200" } }, [
+              _c("img", {
+                attrs: { src: _vm.event.image, width: "365" },
+                on: {
+                  click: function($event) {
+                    return _vm.sw()
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "col-md-6" }, [
+              _vm.event.type == "anniversary"
+                ? _c("div", [
+                    _vm._v(
+                      "\n                                \n                                52位偶像各有一張PST卡與一套衣服(&異色)\n\n                            "
+                    )
+                  ])
+                : _c(
+                    "div",
+                    _vm._l(_vm.event.cards, function(card) {
+                      return _c(
+                        "div",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to: { name: "card", params: { id: card.id } }
+                              }
+                            },
+                            [_c("b", [_vm._v(_vm._s(card.name_tw))]), _c("br")]
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
             ])
           ]),
           _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("td", { staticClass: "col-md-6", attrs: { height: "200" } }, [
-                _c("img", {
-                  attrs: { src: _vm.event.image, width: "365" },
-                  on: {
-                    click: function($event) {
-                      return _vm.sw(_vm.event.id)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "col-md-6" }, [
-                _vm.event.type == "anniversary"
-                  ? _c("div", [
-                      _vm._v(
-                        "\n                                \n                                52位偶像各有一張PST卡與一套衣服(&異色)\n\n                            "
-                      )
-                    ])
-                  : _c(
-                      "div",
-                      _vm._l(_vm.event.cards, function(card) {
-                        return _c(
+          _vm.display[1] == 12
+            ? _c("tr", [
+                _vm.event.type == "tour" || _vm.event.type == "theater"
+                  ? _c(
+                      "td",
+                      {
+                        staticStyle: { "text-align": "left" },
+                        attrs: { colspan: "2", height: "auto" }
+                      },
+                      [
+                        _c(
                           "div",
+                          {
+                            staticClass: "row",
+                            staticStyle: { margin: "23px" }
+                          },
                           [
-                            _c(
-                              "router-link",
-                              {
-                                attrs: {
-                                  to: { name: "card", params: { id: card.id } }
-                                }
-                              },
-                              [
-                                _c("b", [_vm._v(_vm._s(card.name_tw))]),
-                                _c("br")
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      }),
-                      0
-                    )
-              ])
-            ]),
-            _vm._v(" "),
-            _vm.check_display(_vm.event.id)
-              ? _c("tr", [
-                  _vm.event.type == "tour" || _vm.event.type == "theater"
-                    ? _c(
-                        "td",
-                        {
-                          staticStyle: { "text-align": "left" },
-                          attrs: { colspan: "2", height: "auto" }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "row",
-                              staticStyle: { margin: "23px" }
-                            },
-                            [
-                              _c("div", { staticClass: "col-md-4" }, [
-                                _vm.event.boost_date
-                                  ? _c("div", [
-                                      _c("div", [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(_vm.event.start_date) +
-                                            " 活動開始"
-                                        ),
-                                        _c("br"),
-                                        _vm._v(
-                                          _vm._s(_vm.event.boost_date) +
-                                            " 進入後半戰"
-                                        ),
-                                        _c("br"),
-                                        _vm._v(
-                                          _vm._s(_vm.event.end_date) +
-                                            " 活動結束\n                                        "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("div", [
-                                        _c("div", [
-                                          _vm._v(
-                                            "總活動時間： " +
-                                              _vm._s(_vm.total_time())
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("div", [
-                                          _vm._v(
-                                            "前半段長度：　" +
-                                              _vm._s(_vm.first_half())
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("div", [
-                                          _vm._v(
-                                            "後半段長度： " +
-                                              _vm._s(_vm.second_half())
-                                          )
-                                        ])
-                                      ])
-                                    ])
-                                  : _c("div", [
-                                      _c("div", [
-                                        _vm._v(
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _vm.event.boost_date
+                                ? _c("div", [
+                                    _c("div", [
+                                      _vm._v(
+                                        "\n                                            " +
                                           _vm._s(_vm.event.start_date) +
-                                            " 活動開始"
-                                        ),
-                                        _c("br"),
+                                          " 活動開始"
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        _vm._s(_vm.event.boost_date) +
+                                          " 進入後半戰"
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        _vm._s(_vm.event.end_date) +
+                                          " 活動結束\n                                        "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", [
+                                      _c("div", [
                                         _vm._v(
-                                          _vm._s(_vm.event.end_date) +
-                                            " 活動結束"
+                                          "總活動時間： " +
+                                            _vm._s(_vm.total_time())
                                         )
                                       ]),
                                       _vm._v(" "),
                                       _c("div", [
-                                        _c("div", [
-                                          _vm._v(
-                                            "總活動時間： " +
-                                              _vm._s(_vm.total_time())
-                                          )
-                                        ])
+                                        _vm._v(
+                                          "前半段長度：　" +
+                                            _vm._s(_vm.first_half())
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("div", [
+                                        _vm._v(
+                                          "後半段長度： " +
+                                            _vm._s(_vm.second_half())
+                                        )
                                       ])
                                     ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-8" }, [
-                                _vm.event.songs
-                                  ? _c(
-                                      "div",
-                                      _vm._l(_vm.event.songs, function(song) {
-                                        return _c("div", [
-                                          _c("table", [
-                                            _c("tr", [
-                                              _c(
-                                                "td",
-                                                { staticClass: "col-md-4" },
-                                                [
-                                                  _c(
-                                                    "router-link",
-                                                    {
-                                                      attrs: {
-                                                        to: {
-                                                          name: "song",
-                                                          params: {
-                                                            id: song.id
-                                                          }
-                                                        }
+                                  ])
+                                : _c("div", [
+                                    _c("div", [
+                                      _vm._v(
+                                        _vm._s(_vm.event.start_date) +
+                                          " 活動開始"
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        _vm._s(_vm.event.end_date) + " 活動結束"
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", [
+                                      _c("div", [
+                                        _vm._v(
+                                          "總活動時間： " +
+                                            _vm._s(_vm.total_time())
+                                        )
+                                      ])
+                                    ])
+                                  ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-8" }, [
+                              _vm.event.songs
+                                ? _c(
+                                    "div",
+                                    _vm._l(_vm.event.songs, function(song) {
+                                      return _c("div", [
+                                        _c("table", [
+                                          _c("tr", [
+                                            _c(
+                                              "td",
+                                              { staticClass: "col-md-4" },
+                                              [
+                                                _c(
+                                                  "router-link",
+                                                  {
+                                                    attrs: {
+                                                      to: {
+                                                        name: "song",
+                                                        params: { id: song.id }
                                                       }
-                                                    },
-                                                    [
-                                                      _c("img", {
-                                                        attrs: {
-                                                          src: song.image,
-                                                          width: "150"
-                                                        }
-                                                      })
-                                                    ]
-                                                  )
-                                                ],
-                                                1
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                { staticClass: "col-md-6" },
-                                                [
-                                                  _c(
-                                                    "router-link",
-                                                    {
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("img", {
                                                       attrs: {
-                                                        to: {
-                                                          name: "song",
-                                                          params: {
-                                                            id: song.id
-                                                          }
-                                                        }
+                                                        src: song.image,
+                                                        width: "150"
                                                       }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "\n                                                            " +
-                                                          _vm._s(song.name_tw) +
-                                                          "\n                                                        "
-                                                      )
-                                                    ]
-                                                  )
-                                                ],
-                                                1
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                { staticClass: "col-md-2" },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                                        " +
-                                                      _vm._s(song.type) +
-                                                      "\n                                                    "
-                                                  )
-                                                ]
-                                              )
-                                            ])
+                                                    })
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "td",
+                                              { staticClass: "col-md-6" },
+                                              [
+                                                _c(
+                                                  "router-link",
+                                                  {
+                                                    attrs: {
+                                                      to: {
+                                                        name: "song",
+                                                        params: { id: song.id }
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                                            " +
+                                                        _vm._s(song.name_tw) +
+                                                        "\n                                                        "
+                                                    )
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "td",
+                                              { staticClass: "col-md-2" },
+                                              [
+                                                _vm._v(
+                                                  "\n                                                        " +
+                                                    _vm._s(song.type) +
+                                                    "\n                                                    "
+                                                )
+                                              ]
+                                            )
                                           ])
                                         ])
-                                      }),
-                                      0
+                                      ])
+                                    }),
+                                    0
+                                  )
+                                : _vm._e()
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticStyle: { "text-align": "center" } }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.get_ep()
+                                }
+                              }
+                            },
+                            [_vm._v("日版資訊點我")]
+                          ),
+                          _vm._v(" "),
+                          _vm.jp_info
+                            ? _c("div", [
+                                _vm._v(
+                                  "\n\n                                    資料來源："
+                                ),
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href: "https://api.matsurihi.me/docs/"
+                                    }
+                                  },
+                                  [_vm._v("matsurihi.me")]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col-sm-3" }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm-6" }, [
+                                    _vm._v(
+                                      "\n\n                                            總分排名（總人數：" +
+                                        _vm._s(_vm.ep.count) +
+                                        "）"
+                                    ),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "table",
+                                      [
+                                        _vm._m(0),
+                                        _vm._v(" "),
+                                        _vm._l(_vm.ep.scores, function(rk) {
+                                          return _c("tr", [
+                                            _c("td", [_vm._v(_vm._s(rk.rank))]),
+                                            _vm._v(" "),
+                                            _c("td", [_vm._v(_vm._s(rk.score))])
+                                          ])
+                                        })
+                                      ],
+                                      2
                                     )
-                                  : _vm._e()
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm-3" })
+                                ]),
+                                _vm._v(" "),
+                                _c("br"),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col-sm-2" }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm-3" }, [
+                                    _vm._v(
+                                      "\n\n                                            高分排名（總人數：" +
+                                        _vm._s(_vm.hs.count) +
+                                        "）"
+                                    ),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "table",
+                                      [
+                                        _vm._m(1),
+                                        _vm._v(" "),
+                                        _vm._l(_vm.hs.scores, function(rk) {
+                                          return _c("tr", [
+                                            _c("td", [_vm._v(_vm._s(rk.rank))]),
+                                            _vm._v(" "),
+                                            _c("td", [_vm._v(_vm._s(rk.score))])
+                                          ])
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm-2" }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm-3" }, [
+                                    _vm._v(
+                                      "\n\n                                            社交圈排名（總人數：" +
+                                        _vm._s(_vm.lp.count) +
+                                        "）"
+                                    ),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "table",
+                                      [
+                                        _vm._m(2),
+                                        _vm._v(" "),
+                                        _vm._l(_vm.lp.scores, function(rk) {
+                                          return _c("tr", [
+                                            _c("td", [_vm._v(_vm._s(rk.rank))]),
+                                            _vm._v(" "),
+                                            _c("td", [_vm._v(_vm._s(rk.score))])
+                                          ])
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-sm-2" })
+                                ]),
+                                _vm._v(" "),
+                                _c("br"),
+                                _c("br")
                               ])
-                            ]
-                          )
-                        ]
-                      )
-                    : _vm._e()
-                ])
-              : _vm._e()
-          ])
-        ]
-      ),
+                            : _vm._e()
+                        ])
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            : _vm._e()
+        ])
+      ]),
       _vm._v(" "),
-      _c("div", { class: "col-md-1" + _vm.if_display(_vm.event.id)[0] })
+      _c("div", { class: _vm.margin() })
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("排名")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("分數")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("排名")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("分數")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("排名")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("分數")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -23115,85 +23609,90 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.isMounted
-    ? _c("div", [
-        _c("div", { staticStyle: { "text-align": "right" } }, [
+  return _c("div", [
+    _vm.isMounted
+      ? _c("div", [
+          _c("div", { staticStyle: { "text-align": "right" } }, [
+            _vm.filter
+              ? _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.filter = !_vm.filter
+                      }
+                    }
+                  },
+                  [_vm._v(" >>日版未來視點我 ")]
+                )
+              : _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.filter = !_vm.filter
+                      }
+                    }
+                  },
+                  [_vm._v(" >>回繁體中文版 ")]
+                ),
+            _vm._v(" "),
+            _c("br"),
+            _c("br")
+          ]),
+          _vm._v(" "),
           _vm.filter
             ? _c(
-                "a",
-                {
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.filter = !_vm.filter
-                    }
-                  }
-                },
-                [_vm._v(" >>日版未來視點我 ")]
+                "div",
+                _vm._l(_vm.events_tw(), function(event) {
+                  return _c("div", [
+                    _vm.date >= new Date(event.start_date)
+                      ? _c(
+                          "div",
+                          [
+                            _c("Event", { attrs: { event: event } }),
+                            _vm._v(" "),
+                            _c("br"),
+                            _c("br"),
+                            _c("br"),
+                            _c("br")
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ])
+                }),
+                0
               )
             : _c(
-                "a",
-                {
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.filter = !_vm.filter
-                    }
-                  }
-                },
-                [_vm._v(" >>回繁體中文版 ")]
+                "div",
+                _vm._l(_vm.events_jp(), function(event) {
+                  return _c("div", [
+                    _vm.date < new Date(event.start_date)
+                      ? _c(
+                          "div",
+                          [
+                            _c("Event", { attrs: { event: event } }),
+                            _vm._v(" "),
+                            _c("br"),
+                            _c("br"),
+                            _c("br"),
+                            _c("br")
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ])
+                }),
+                0
               )
-        ]),
-        _vm._v(" "),
-        _vm.filter
-          ? _c(
-              "div",
-              _vm._l(_vm.events_tw(), function(event) {
-                return _c("div", [
-                  _vm.date >= new Date(event.start_date)
-                    ? _c(
-                        "div",
-                        [
-                          _c("Event", { attrs: { event: event } }),
-                          _vm._v(" "),
-                          _c("br"),
-                          _c("br"),
-                          _c("br"),
-                          _c("br")
-                        ],
-                        1
-                      )
-                    : _vm._e()
-                ])
-              }),
-              0
-            )
-          : _c(
-              "div",
-              _vm._l(_vm.events_jp(), function(event) {
-                return _c("div", [
-                  _vm.date < new Date(event.start_date)
-                    ? _c(
-                        "div",
-                        [
-                          _c("Event", { attrs: { event: event } }),
-                          _vm._v(" "),
-                          _c("br"),
-                          _c("br"),
-                          _c("br"),
-                          _c("br")
-                        ],
-                        1
-                      )
-                    : _vm._e()
-                ])
-              }),
-              0
-            )
-      ])
-    : _vm._e()
+        ])
+      : _c("div", [_vm._v("載入中．．．")])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -23218,174 +23717,172 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { class: "col-md-" + _vm.if_display(_vm.gacha.id)[0] }),
+    _c("div", { class: _vm.margin() }),
     _vm._v(" "),
-    _c("div", { class: "gacha col-md-" + _vm.if_display(_vm.gacha.id)[1] }, [
-      _c("table", { staticClass: "full row" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { staticClass: "col-md-6" }, [
-              _c("b", [_vm._v(_vm._s(_vm.gacha.name_tw))])
-            ]),
-            _vm._v(" "),
-            _c("th", { staticClass: "col-md-6" }, [
-              _c("b", [
-                _vm._v(
-                  _vm._s(_vm.gacha.start_date) +
-                    " ~ " +
-                    _vm._s(_vm.gacha.end_date)
+    _c("table", { class: _vm.content() + " full gacha" }, [
+      _c("thead", [
+        _c("tr", [
+          _c("th", { staticClass: "col-md-6" }, [
+            _c("b", [_vm._v(_vm._s(_vm.gacha.name_tw))])
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "col-md-6" }, [
+            _c("b", [
+              _vm._v(
+                _vm._s(_vm.gacha.start_date) +
+                  " ~ " +
+                  _vm._s(_vm.gacha.end_date)
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tbody", [
+        _c("tr", [
+          _c("td", { staticClass: "col-md-6", attrs: { height: "200" } }, [
+            _c("img", {
+              attrs: { src: _vm.gacha.image, width: "365" },
+              on: {
+                click: function($event) {
+                  return _vm.sw(_vm.gacha.id)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "td",
+            { staticClass: "col-md-6" },
+            _vm._l(_vm.gacha.cards, function(card) {
+              return _c(
+                "div",
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: { to: { name: "card", params: { id: card.id } } }
+                    },
+                    [_c("b", [_vm._v(_vm._s(card.name_tw))]), _c("br")]
+                  )
+                ],
+                1
+              )
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _vm.display[1] == 12
+          ? _c("tr", [
+              _c("td", { attrs: { colspan: "2", height: "700" } }, [
+                _c(
+                  "table",
+                  {
+                    staticClass: "inner",
+                    staticStyle: { "table-layout": "fixed" },
+                    attrs: { width: "100%" }
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.gacha.cards, function(card) {
+                        return _c("tr", { attrs: { height: "180" } }, [
+                          _c(
+                            "td",
+                            { staticClass: "t2" },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "card",
+                                      params: { id: card.id }
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: { src: card.imageA, width: "110" }
+                                  })
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "t2" },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "card",
+                                      params: { id: card.id }
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: { src: card.imageB, width: "110" }
+                                  })
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "t2" },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "card",
+                                      params: { id: card.id }
+                                    }
+                                  }
+                                },
+                                [_c("b", [_vm._v(_vm._s(card.name_tw))])]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "t2" }, [
+                            _vm._v(_vm._s(card.rarity))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "t2",
+                              style: _vm.add_color(card.limited)
+                            },
+                            [_c("b", [_vm._v(_vm._s(card.limited))])]
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ]
                 )
               ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", { staticClass: "col-md-6", attrs: { height: "200" } }, [
-              _c("img", {
-                attrs: { src: _vm.gacha.image, width: "365" },
-                on: {
-                  click: function($event) {
-                    return _vm.sw(_vm.gacha.id)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "td",
-              { staticClass: "col-md-6" },
-              _vm._l(_vm.gacha.cards, function(card) {
-                return _c(
-                  "div",
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        attrs: { to: { name: "card", params: { id: card.id } } }
-                      },
-                      [_c("b", [_vm._v(_vm._s(card.name_tw))]), _c("br")]
-                    )
-                  ],
-                  1
-                )
-              }),
-              0
-            )
-          ]),
-          _vm._v(" "),
-          _vm.check_display(_vm.gacha.id)
-            ? _c("tr", [
-                _c("td", { attrs: { colspan: "2", height: "700" } }, [
-                  _c(
-                    "table",
-                    {
-                      staticClass: "inner",
-                      staticStyle: { "table-layout": "fixed" },
-                      attrs: { width: "100%" }
-                    },
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.gacha.cards, function(card) {
-                          return _c("tr", { attrs: { height: "180" } }, [
-                            _c(
-                              "td",
-                              { staticClass: "t2" },
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    attrs: {
-                                      to: {
-                                        name: "card",
-                                        params: { id: card.id }
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("img", {
-                                      attrs: { src: card.imageA, width: "110" }
-                                    })
-                                  ]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              { staticClass: "t2" },
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    attrs: {
-                                      to: {
-                                        name: "card",
-                                        params: { id: card.id }
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("img", {
-                                      attrs: { src: card.imageB, width: "110" }
-                                    })
-                                  ]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              { staticClass: "t2" },
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    attrs: {
-                                      to: {
-                                        name: "card",
-                                        params: { id: card.id }
-                                      }
-                                    }
-                                  },
-                                  [_c("b", [_vm._v(_vm._s(card.name_tw))])]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "t2" }, [
-                              _vm._v(_vm._s(card.rarity))
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass: "t2",
-                                style: _vm.add_color(card.limited)
-                              },
-                              [_c("b", [_vm._v(_vm._s(card.limited))])]
-                            )
-                          ])
-                        }),
-                        0
-                      )
-                    ]
-                  )
-                ])
-              ])
-            : _vm._e()
-        ])
+          : _vm._e()
       ])
     ]),
     _vm._v(" "),
-    _c("div", { class: "col-md-1" + _vm.if_display(_vm.gacha.id)[2] })
+    _c("div", { class: _vm.margin() })
   ])
 }
 var staticRenderFns = [
@@ -23429,74 +23926,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.isMounted
-    ? _c("div", [
-        _c("div", { staticStyle: { "text-align": "right" } }, [
+  return _c("div", [
+    _vm.isMounted
+      ? _c("div", [
+          _c("div", { staticStyle: { "text-align": "right" } }, [
+            _vm.filter
+              ? _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.filter = !_vm.filter
+                      }
+                    }
+                  },
+                  [_vm._v(" >>日版未來視點我 ")]
+                )
+              : _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.filter = !_vm.filter
+                      }
+                    }
+                  },
+                  [_vm._v(" >>回繁體中文版 ")]
+                ),
+            _vm._v(" "),
+            _c("br"),
+            _c("br")
+          ]),
+          _vm._v(" "),
           _vm.filter
             ? _c(
-                "a",
-                {
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.filter = !_vm.filter
-                    }
-                  }
-                },
-                [_vm._v(" >>日版未來視點我 ")]
+                "div",
+                _vm._l(_vm.gachas_tw(), function(gacha) {
+                  return _c("div", [
+                    _vm.date >= new Date(gacha.start_date)
+                      ? _c(
+                          "div",
+                          [
+                            _c("Gacha", { attrs: { gacha: gacha } }),
+                            _vm._v(" "),
+                            _c("br"),
+                            _c("br"),
+                            _c("br"),
+                            _c("br")
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ])
+                }),
+                0
               )
             : _c(
-                "a",
-                {
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.filter = !_vm.filter
-                    }
-                  }
-                },
-                [_vm._v(" >>回繁體中文版 ")]
+                "div",
+                _vm._l(_vm.gachas_jp(), function(gacha) {
+                  return _c("div", [
+                    _vm.date < new Date(gacha.start_date)
+                      ? _c("div", [_c("Gacha", { attrs: { gacha: gacha } })], 1)
+                      : _vm._e()
+                  ])
+                }),
+                0
               )
-        ]),
-        _vm._v(" "),
-        _vm.filter
-          ? _c(
-              "div",
-              _vm._l(_vm.gachas_tw(), function(gacha) {
-                return _c("div", [
-                  _vm.date >= new Date(gacha.start_date)
-                    ? _c(
-                        "div",
-                        [
-                          _c("Gacha", { attrs: { gacha: gacha } }),
-                          _vm._v(" "),
-                          _c("br"),
-                          _c("br"),
-                          _c("br"),
-                          _c("br")
-                        ],
-                        1
-                      )
-                    : _vm._e()
-                ])
-              }),
-              0
-            )
-          : _c(
-              "div",
-              _vm._l(_vm.gachas_jp(), function(gacha) {
-                return _c("div", [
-                  _vm.date < new Date(gacha.start_date)
-                    ? _c("div", [_c("Gacha", { attrs: { gacha: gacha } })], 1)
-                    : _vm._e()
-                ])
-              }),
-              0
-            )
-      ])
-    : _vm._e()
+        ])
+      : _c("div", [_vm._v("載入中．．．")])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -23524,15 +24026,98 @@ var render = function() {
     ? _c(
         "div",
         [
-          _c("Event", { attrs: { event: _vm.event } }),
+          _c("hr"),
+          _vm._v(" "),
+          _vm._l(_vm.events, function(event) {
+            return _vm.events.length != 0
+              ? _c(
+                  "div",
+                  [
+                    _vm._m(0, true),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticStyle: {
+                          "text-align": "center",
+                          "font-size": "18px",
+                          "font-weight": "bold",
+                          "background-color": "red",
+                          color: "white"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n            " + _vm._s(_vm.e_left) + "\n        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("Event", { attrs: { event: event } }),
+                    _vm._v(" "),
+                    _c("hr")
+                  ],
+                  1
+                )
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticStyle: {
+                "text-align": "center",
+                "font-size": "18px",
+                "font-weight": "bold",
+                "background-color": "red",
+                color: "white"
+              }
+            },
+            [_vm._v("\n        " + _vm._s(_vm.g_left) + "\n    ")]
+          ),
           _vm._v(" "),
           _c("Gacha", { attrs: { gacha: _vm.gacha } })
         ],
-        1
+        2
       )
     : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: {
+          "text-align": "center",
+          "font-size": "42px",
+          "font-weight": "bold"
+        }
+      },
+      [_vm._v("當前活動"), _c("br")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: {
+          "text-align": "center",
+          "font-size": "42px",
+          "font-weight": "bold"
+        }
+      },
+      [_vm._v("當前轉蛋"), _c("br")]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -24029,7 +24614,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "col-sm-1" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-5" }, [
+        _c("div", [_c("img", { attrs: { src: _vm.song.image, width: "280" } })])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "_table" }, [
@@ -24107,7 +24696,7 @@ var render = function() {
     _c("hr"),
     _vm._v(" "),
     _c("table", { staticStyle: { border: "0px solid" } }, [
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c("tr", [
         _c("td", { staticClass: "toumei_list" }, [_vm._v("難度")]),
@@ -24170,20 +24759,12 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
     _c("div", { staticClass: "row" })
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6" }, [
-      _c("br"),
-      _vm._v(" "),
-      _c("div", [_c("img", { attrs: { src: "", width: "450" } })])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -24209,6 +24790,138 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/SongTotalData.vue?vue&type=template&id=5a735ffc&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/vue/SongTotalData.vue?vue&type=template&id=5a735ffc& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-1" }),
+      _vm._v(" "),
+      _c("table", { staticClass: "col-md-10 row" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.songs_info, function(song) {
+            return _c("tr", [
+              _c("td", [
+                _c("img", {
+                  staticClass: "thumbnail",
+                  attrs: { src: song.image }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "td",
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: { to: { name: "song", params: { id: song.id } } }
+                    },
+                    [_c("b", [_vm._v(_vm._s(song.name_tw))])]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.move))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.speed_max))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.speed_min))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.flick_total))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.flick_left))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.flick_up))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.flick_right))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.line))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.sliders))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.circle_small))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.circle_big))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.circle_huge))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.stream_total))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(song.stream_max))])
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-1" })
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th"),
+        _vm._v(" "),
+        _c("th", [_vm._v("歌名")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("總位移")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("最高下落速度")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("最低下落速度")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("箭頭總數")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("箭頭向左")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("箭頭向上")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("箭頭向左")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("共同線")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("長條")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("小圈")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("大圈")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("超大型圈圈")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("總連打數")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("最長連打")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/Songs.vue?vue&type=template&id=0bda2507&":
 /*!*************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/vue/Songs.vue?vue&type=template&id=0bda2507& ***!
@@ -24225,35 +24938,45 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticStyle: { "text-align": "right" } }, [
-      _vm.filter["tw"]
-        ? _c(
-            "a",
-            {
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  _vm.filter["tw"] = !_vm.filter["tw"]
+    _c(
+      "div",
+      { staticStyle: { "text-align": "right" } },
+      [
+        _vm.filter["tw"]
+          ? _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.filter["tw"] = !_vm.filter["tw"]
+                  }
                 }
-              }
-            },
-            [_vm._v(" >>日版未來視點我 ")]
-          )
-        : _c(
-            "a",
-            {
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  _vm.filter["tw"] = !_vm.filter["tw"]
+              },
+              [_vm._v(" >>日版未來視點我 ")]
+            )
+          : _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.filter["tw"] = !_vm.filter["tw"]
+                  }
                 }
-              }
-            },
-            [_vm._v(" >>回繁體中文版 ")]
-          )
-    ]),
+              },
+              [_vm._v(" >>回繁體中文版 ")]
+            ),
+        _c("br"),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: { name: "songs_info" } } }, [
+          _c("b", [_vm._v(" >>詳細資料版本(譜面剖析)")])
+        ])
+      ],
+      1
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "row", staticStyle: { "text-align": "center" } }, [
       _c("div", { staticClass: "col-md-1" }),
@@ -39788,17 +40511,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _vue_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vue/App */ "./resources/js/vue/App.vue");
 /* harmony import */ var _vue_Songs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue/Songs */ "./resources/js/vue/Songs.vue");
-/* harmony import */ var _vue_Song__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/Song */ "./resources/js/vue/Song.vue");
-/* harmony import */ var _vue_Cards__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/Cards */ "./resources/js/vue/Cards.vue");
-/* harmony import */ var _vue_Card__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/Card */ "./resources/js/vue/Card.vue");
-/* harmony import */ var _vue_Idols__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vue/Idols */ "./resources/js/vue/Idols.vue");
-/* harmony import */ var _vue_Idol__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./vue/Idol */ "./resources/js/vue/Idol.vue");
-/* harmony import */ var _vue_Gachas__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./vue/Gachas */ "./resources/js/vue/Gachas.vue");
-/* harmony import */ var _vue_Events__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./vue/Events */ "./resources/js/vue/Events.vue");
-/* harmony import */ var _vue_About__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./vue/About */ "./resources/js/vue/About.vue");
-/* harmony import */ var _vue_Datas__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./vue/Datas */ "./resources/js/vue/Datas.vue");
-/* harmony import */ var _vue_Calculators__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./vue/Calculators */ "./resources/js/vue/Calculators.vue");
-/* harmony import */ var _vue_Home__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./vue/Home */ "./resources/js/vue/Home.vue");
+/* harmony import */ var _vue_SongTotalData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/SongTotalData */ "./resources/js/vue/SongTotalData.vue");
+/* harmony import */ var _vue_Song__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/Song */ "./resources/js/vue/Song.vue");
+/* harmony import */ var _vue_Cards__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/Cards */ "./resources/js/vue/Cards.vue");
+/* harmony import */ var _vue_Card__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vue/Card */ "./resources/js/vue/Card.vue");
+/* harmony import */ var _vue_Idols__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./vue/Idols */ "./resources/js/vue/Idols.vue");
+/* harmony import */ var _vue_Idol__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./vue/Idol */ "./resources/js/vue/Idol.vue");
+/* harmony import */ var _vue_Gachas__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./vue/Gachas */ "./resources/js/vue/Gachas.vue");
+/* harmony import */ var _vue_Events__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./vue/Events */ "./resources/js/vue/Events.vue");
+/* harmony import */ var _vue_About__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./vue/About */ "./resources/js/vue/About.vue");
+/* harmony import */ var _vue_Datas__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./vue/Datas */ "./resources/js/vue/Datas.vue");
+/* harmony import */ var _vue_Calculators__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./vue/Calculators */ "./resources/js/vue/Calculators.vue");
+/* harmony import */ var _vue_Home__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./vue/Home */ "./resources/js/vue/Home.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -39820,56 +40544,61 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 
 
+
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
     path: '/',
     name: 'home',
-    component: _vue_Home__WEBPACK_IMPORTED_MODULE_14__["default"]
+    component: _vue_Home__WEBPACK_IMPORTED_MODULE_15__["default"]
   }, {
     path: '/songs',
     name: 'songs',
     component: _vue_Songs__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
+    path: '/songs/info',
+    name: 'songs_info',
+    component: _vue_SongTotalData__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }, {
     path: '/songs/:id?',
     name: 'song',
-    component: _vue_Song__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _vue_Song__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: '/cards',
     name: 'cards',
-    component: _vue_Cards__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _vue_Cards__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: '/cards/:id?',
     name: 'card',
-    component: _vue_Card__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _vue_Card__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: '/idols',
     name: 'idols',
-    component: _vue_Idols__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _vue_Idols__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, {
     path: '/idols/:id?',
     name: 'idol',
-    component: _vue_Idol__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _vue_Idol__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
     path: '/gachas',
     name: 'gachas',
-    component: _vue_Gachas__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _vue_Gachas__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
     path: '/events',
     name: 'events',
-    component: _vue_Events__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _vue_Events__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
     path: '/about',
     name: 'about',
-    component: _vue_About__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _vue_About__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
     path: '/datas',
     name: 'datas',
-    component: _vue_Datas__WEBPACK_IMPORTED_MODULE_12__["default"]
+    component: _vue_Datas__WEBPACK_IMPORTED_MODULE_13__["default"]
   }, {
     path: '/calculators',
     name: 'calculators',
-    component: _vue_Calculators__WEBPACK_IMPORTED_MODULE_13__["default"]
+    component: _vue_Calculators__WEBPACK_IMPORTED_MODULE_14__["default"]
   }]
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -40912,6 +41641,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Song_vue_vue_type_template_id_208120c8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Song_vue_vue_type_template_id_208120c8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/vue/SongTotalData.vue":
+/*!********************************************!*\
+  !*** ./resources/js/vue/SongTotalData.vue ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SongTotalData_vue_vue_type_template_id_5a735ffc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SongTotalData.vue?vue&type=template&id=5a735ffc& */ "./resources/js/vue/SongTotalData.vue?vue&type=template&id=5a735ffc&");
+/* harmony import */ var _SongTotalData_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SongTotalData.vue?vue&type=script&lang=js& */ "./resources/js/vue/SongTotalData.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SongTotalData_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SongTotalData_vue_vue_type_template_id_5a735ffc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SongTotalData_vue_vue_type_template_id_5a735ffc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/vue/SongTotalData.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/vue/SongTotalData.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/vue/SongTotalData.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SongTotalData_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SongTotalData.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/SongTotalData.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SongTotalData_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/vue/SongTotalData.vue?vue&type=template&id=5a735ffc&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/vue/SongTotalData.vue?vue&type=template&id=5a735ffc& ***!
+  \***************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SongTotalData_vue_vue_type_template_id_5a735ffc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SongTotalData.vue?vue&type=template&id=5a735ffc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/SongTotalData.vue?vue&type=template&id=5a735ffc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SongTotalData_vue_vue_type_template_id_5a735ffc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SongTotalData_vue_vue_type_template_id_5a735ffc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

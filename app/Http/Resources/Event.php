@@ -27,12 +27,12 @@ class Event extends JsonResource
             'cards' => CardResource::collection($this->cards),
             'image' => $this->event_images[0]->image,
             'type' => $this->type,
-            'ep' => null,
             'songs' => SongResource::collection($this->songs),
 
             'start_date' => $this->start_date,
             'boost_date' => $this->boost_date,
             'end_date' => $this->end_date,
+            'api_id' => $this->api_id,
 
         ];
 

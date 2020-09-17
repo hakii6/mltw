@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGachasTestTable extends Migration
+class CreateGachasTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'gasyas';
+    public $tableName = 'gachas';
 
     /**
      * Run the migrations.

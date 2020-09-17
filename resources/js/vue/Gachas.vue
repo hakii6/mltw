@@ -1,31 +1,40 @@
 <template>
-	<div v-if='isMounted'>
 
-		<div style ='text-align: right;'>
-			<a v-if="filter" href='#' @click.prevent="filter = !(filter) "> >>日版未來視點我 </a>
-			<a v-else href='#' @click.prevent="filter = !(filter)"> >>回繁體中文版 </a>
+	<div>
+		
+		<div v-if='isMounted'>
 
-		</div>
+			<div style ='text-align: right;'>
+				<a v-if="filter" href='#' @click.prevent="filter = !(filter) "> >>日版未來視點我 </a>
+				<a v-else href='#' @click.prevent="filter = !(filter)"> >>回繁體中文版 </a>
 
-		<div v-if='filter'>
-			<div v-for='gacha in gachas_tw()'>
-				<div v-if='date >= new Date(gacha.start_date)'>
-					<Gacha :gacha='gacha'></Gacha>
-					<br><br><br><br>
-				</div>
-				
+				            <br><br>
+
+
 			</div>
-		</div>
 
-		<div v-else>
-			<div v-for='gacha in gachas_jp()'>
-				<div v-if='date < new Date(gacha.start_date)'>
-					<Gacha :gacha='gacha'></Gacha>
+			<div v-if='filter'>
+				<div v-for='gacha in gachas_tw()'>
+					<div v-if='date >= new Date(gacha.start_date)'>
+						<Gacha :gacha='gacha'></Gacha>
+						<br><br><br><br>
+					</div>
+					
 				</div>
 			</div>
+
+			<div v-else>
+				<div v-for='gacha in gachas_jp()'>
+					<div v-if='date < new Date(gacha.start_date)'>
+						<Gacha :gacha='gacha'></Gacha>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
-	</div>
+        <div v-else>載入中．．．</div>
+    </div>
 </template>
 
 

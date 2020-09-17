@@ -1,35 +1,42 @@
 <template>
-	<div v-if='isMounted'>
 
-        <div style ='text-align: right;'>
-            <a v-if="filter" href='#' @click.prevent="filter = !(filter) "> >>日版未來視點我 </a>
-            <a v-else href='#' @click.prevent="filter = !(filter)"> >>回繁體中文版 </a>
+    <div>
+    	<div v-if='isMounted'>
 
-        </div>
-
-        <div v-if='filter'>
-            <div v-for='event in events_tw()'>
-
-                <div v-if='date >= new Date(event.start_date)'>
-                    <Event :event='event'></Event>
-                    <br><br><br><br>
-                </div>
+            <div style ='text-align: right;'>
+                <a v-if="filter" href='#' @click.prevent="filter = !(filter) "> >>日版未來視點我 </a>
+                <a v-else href='#' @click.prevent="filter = !(filter)"> >>回繁體中文版 </a>
+                <br><br>
 
             </div>
-        </div>
 
-        <div v-else>
-            <div v-for='event in events_jp()'>
+            <div v-if='filter'>
+                <div v-for='event in events_tw()'>
 
-                <div v-if='date < new Date(event.start_date)'>
-                    <Event :event='event'></Event>
-                    <br><br><br><br>
+                    <div v-if='date >= new Date(event.start_date)'>
+                        <Event :event='event'></Event>
+                        <br><br><br><br>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
 
-	</div>
+            <div v-else>
+                <div v-for='event in events_jp()'>
+
+                    <div v-if='date < new Date(event.start_date)'>
+                        <Event :event='event'></Event>
+                        <br><br><br><br>
+                    </div>
+
+                </div>
+            </div>
+
+    	</div>
+
+        <div v-else>載入中．．．</div>
+        
+    </div>
 </template>
 
 
@@ -84,11 +91,12 @@ import _ from "lodash"
         },
         mounted(){
 
-			axios
-			.get('https://mltw-wiki.online/api/v1/events')
-			.then(response => (this.events = response.data ));
-			this.isMounted = true;
 
+    			axios
+    			.get('https://mltw-wiki.online/api/v1/events')
+    			.then(response => (this.events = response.data ));
+
+    			this.isMounted = true;
 
 
 

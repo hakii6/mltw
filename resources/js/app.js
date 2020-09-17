@@ -13,6 +13,7 @@ Vue.use(VueRouter)
 
 import App from './vue/App'
 import Songs from './vue/Songs'
+import SongTotalData from './vue/SongTotalData'
 import Song from './vue/Song'
 import Cards from './vue/Cards'
 import Card from './vue/Card'
@@ -41,6 +42,12 @@ const router = new VueRouter({
             name: 'songs',
             component: Songs
         },
+        {
+            path: '/songs/info',
+            name: 'songs_info',
+            component: SongTotalData,
+        },
+
         {
             path: '/songs/:id?',
             name: 'song',

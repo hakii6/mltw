@@ -1,8 +1,10 @@
 <template>
 	<div>
 		<div style ='text-align: right;'>
+
 			<a v-if="filter['tw']" href='#' @click.prevent="filter['tw'] = !(filter['tw']) "> >>日版未來視點我 </a>
-			<a v-else href='#' @click.prevent="filter['tw'] = !(filter['tw'])"> >>回繁體中文版 </a>
+			<a v-else href='#' @click.prevent="filter['tw'] = !(filter['tw'])"> >>回繁體中文版 </a><br>
+			<router-link :to="{ name: 'songs_info'}"><b> >>詳細資料版本(譜面剖析)</b></router-link>
 
 		</div>
 
